@@ -40,5 +40,5 @@
   2. ✅ Random constructor with seed (`Matrix(int row, int col)`)
   3. ✅ Getters: `getRow()`, `getCol()`, `getData(int row, int col)`
   4. ✅ Transpose (`transpose()`)
-  5. 🔲 Element-wise addition — **next up**
-  6. 🔲 Matrix multiplication
+  5. ✅ Element-wise addition (`add()`)
+  6. 🔨 Matrix multiplication — **in progress**

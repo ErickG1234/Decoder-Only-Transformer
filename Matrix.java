@@ -18,19 +18,41 @@ public class Matrix {
         }
     }
 
-    // Random Constructor for actual testing (Could use random seeds for testing and
-    // predictability, then switch for functionality)
+    // Zero-Filled Constructor - decided to change for multiplication and addition
+    // method
+    // Will use the Static method random for predictablity and testing
     public Matrix(int row, int col) {
         this.row = row;
         this.col = col;
         data = new double[row][col];
+    }
+
+    public static Matrix random(int row, int col) {
+        Matrix randomMatrix = new Matrix(row, col);
 
         Random randomSeed = new Random(67);
-        for (int rows = 0; rows < data.length; rows++) {
-            for (int cols = 0; cols < data[rows].length; cols++) {
-                data[rows][cols] = randomSeed.nextDouble();
+        for (int rows = 0; rows < row; rows++) {
+            for (int cols = 0; cols < col; cols++) {
+                randomMatrix.data[rows][cols] = randomSeed.nextDouble();
             }
         }
+        return randomMatrix;
+    }
+
+    // @Override replaces the default Object.toString() (which prints
+    // ClassName@address)
+    // with our own version. println(matrix) automatically calls matrix.toString().
+    // This method BUILDS and RETURNS a String — it doesn't print anything itself.
+    @Override
+    public String toString() {
+        String result = "";
+        for (int i = 0; i < this.row; i++) {
+            for (int j = 0; j < this.col; j++) {
+                result += data[i][j] + " "; // Java auto-converts double to String via +
+            }
+            result += "\n"; // newline after each row
+        }
+        return result;
     }
 
     public int getRow() {
@@ -78,8 +100,11 @@ public class Matrix {
 
     // Matrix A's cols must equal Matrix B's rows for matrices to be multiplied: 2x3
     // * 3x2 ✅
-    // Multiply Matrix A row to Matrix B column: write stuff here
-    // LEFT OFF HERE
+    // Then, MatrixA row and MatrixB col make up the dimensions for the new matrix
+    // (2x2)
+    // Multiple each element in the row of Matrix A to each element in Column B
+    // Ex: ([0][0] * [0][0]) + ([0][1] + [1][0]) + ([0][2] + [2][0]) ... ect
+    // Do this for all rows and columns then you have your new array!!
     public static Matrix multiplication(Matrix matrixA, Matrix matrixB) {
         if (matrixA.col != matrixB.row) {
             throw new IllegalArgumentException("Matrix A's cols must equal Matrix B's rows.");
@@ -87,7 +112,9 @@ public class Matrix {
         Matrix matrixProduct = new Matrix(matrixA.row, matrixB.col);
         for (int r = 0; r < matrixA.row; r++) {
             for (int c = 0; c < matrixB.col; c++) {
-                matrixProduct.data[r][c] = matrixA.data[r][c] * matrixB.data[r][c];
+                for (int pair = 0; pair < matrixB.row; pair++) {
+                    matrixProduct.data[r][c] += matrixA.data[r][pair] * matrixB.data[pair][c];
+                }
             }
         }
         return matrixProduct;

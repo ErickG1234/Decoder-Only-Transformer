@@ -27,6 +27,9 @@
 - **Do NOT give full solutions** unless Erick is truly stuck or doesn't know how to do something
 - Ask guiding questions, provide small hints, and let Erick figure it out
 - Help Erick understand both the **topic** (transformers/ML) and the **programming** (Java) behind it
+- **Concrete examples first**: Erick learns best when he works through the math by hand before coding (e.g., matrix multiplication on paper → then code)
+- **Rusty on some Java**: static methods, @Override/toString — he picks them up fast with a reminder but may need a nudge
+- **Design discussions help**: He's engaged by "why is this better?" conversations (e.g., static factory vs boolean flag)
 
 ## Technical Context
 - Erick has watched the **3Blue1Brown transformer series** — has solid high-level intuition
@@ -37,8 +40,15 @@
 - **Step 1**: Build a `Matrix` utility class
 - Completed so far:
   1. ✅ Data constructor (`Matrix(double[][] userData)`)
-  2. ✅ Random constructor with seed (`Matrix(int row, int col)`)
-  3. ✅ Getters: `getRow()`, `getCol()`, `getData(int row, int col)`
-  4. ✅ Transpose (`transpose()`)
-  5. ✅ Element-wise addition (`add()`)
-  6. 🔨 Matrix multiplication — **in progress**
+  2. ✅ Zero constructor (`Matrix(int row, int col)`) — refactored from random, now fills with 0s
+  3. ✅ Random static factory method (`Matrix.random(int row, int col)`)
+  4. ✅ Getters: `getRow()`, `getCol()`, `getData(int row, int col)`
+  5. ✅ `toString()` — overrides Object default, builds string of matrix values
+  6. ✅ Transpose (`transpose()`)
+  7. ✅ Element-wise addition (`add()`)
+  8. ✅ Matrix multiplication (`multiplication()`) — 3 nested loops, dot product of row × column
+- Up next:
+  1. 🔲 Scalar multiplication (multiply every element by a number)
+  2. 🔲 Softmax (convert values → probabilities that sum to 1)
+  3. 🔲 Any other operations needed before moving to Step 2
+

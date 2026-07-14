@@ -105,7 +105,7 @@ public class Matrix {
     // Multiple each element in the row of Matrix A to each element in Column B
     // Ex: ([0][0] * [0][0]) + ([0][1] + [1][0]) + ([0][2] + [2][0]) ... ect
     // Do this for all rows and columns then you have your new array!!
-    public static Matrix multiplication(Matrix matrixA, Matrix matrixB) {
+    public static Matrix multiply(Matrix matrixA, Matrix matrixB) {
         if (matrixA.col != matrixB.row) {
             throw new IllegalArgumentException("Matrix A's cols must equal Matrix B's rows.");
         }
@@ -118,6 +118,45 @@ public class Matrix {
             }
         }
         return matrixProduct;
+    }
+
+    // Mutates in place — during the transformer forward pass, we scale values
+    // (e.g., dividing attention scores by √d_k) and don't need the originals.
+    // Returns 'this' to allow method chaining (e.g.,
+    // matrix.scalarMultiply(0.5).transpose())
+    public Matrix scalarMultiply(double scalarNum) {
+        for (int r = 0; r < this.row; r++) {
+            for (int c = 0; c < this.col; c++) {
+                this.data[r][c] = this.data[r][c] * scalarNum;
+            }
+        }
+        return this;
+    }
+
+    // Left off here
+    // Answer to previous prompt: Should'nt softmax be applied to each row? Since
+    // each row kind of holds the attntions for the tokens i think, it makes more
+    // sense to apply it to each row rather than the whole matrix, atleast thats
+    // what i think but what do you think?
+    public Matrix softmax(double[][] attentionScores) {
+        double softmaxNum = 0;
+        int endOfScores = attentionScores.length - 1;
+        double[] probabilityDistribution = new double[attentionScores.length];
+
+        for (int r = 0; r < attentionScores.length; r++) {
+            for (int j = 0; j < attentionScores[0].length; j++) {
+                if (endOfScores == j) {
+                    softmaxNum += Math.exp // finish this
+                    probabilityDistribution[r] = softmaxNum;
+                    softmaxNum = 0;
+
+
+
+                }
+                attentionScores[r][j] = Math.exp
+            }
+        }
+
     }
 
 }

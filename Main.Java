@@ -6,7 +6,7 @@ public class Main {
         Matrix matrixA = new Matrix(dataA);
         Matrix matrixB = new Matrix(dataB);
 
-        Matrix product = Matrix.multiplication(matrixA, matrixB);
+        Matrix product = Matrix.multiply(matrixA, matrixB);
 
         System.out.println("Matrix Multiplication product: " + product);
 

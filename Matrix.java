@@ -133,30 +133,32 @@ public class Matrix {
         return this;
     }
 
-    // Left off here
-    // Answer to previous prompt: Should'nt softmax be applied to each row? Since
-    // each row kind of holds the attntions for the tokens i think, it makes more
-    // sense to apply it to each row rather than the whole matrix, atleast thats
-    // what i think but what do you think?
-    public Matrix softmax(double[][] attentionScores) {
-        double softmaxNum = 0;
-        int endOfScores = attentionScores.length - 1;
-        double[] probabilityDistribution = new double[attentionScores.length];
+    // SOFTMAX FORMULA (per row):
+    // 1. e^(each element) — exponentiate every value
+    // 2. Sum up all the e^values in that row
+    // 3. Divide each e^value by the sum → gives probabilities that sum to 1.0
+    //
 
-        for (int r = 0; r < attentionScores.length; r++) {
-            for (int j = 0; j < attentionScores[0].length; j++) {
-                if (endOfScores == j) {
-                    softmaxNum += Math.exp // finish this
-                    probabilityDistribution[r] = softmaxNum;
-                    softmaxNum = 0;
+    // 3. Use a TWO-PASS approach per row:
+    // Pass 1: compute e^(each element), store back, accumulate the sum
+    // Pass 2: divide every element by that sum
+    // 4. Return this (for method chaining)
 
+    public Matrix softmax() {
+        double softmaxSum = 0;
 
+        for (int r = 0; r < this.row; r++) {
+            softmaxSum = 0;
+            for (int c = 0; c < this.col; c++) {
+                this.data[r][c] = Math.exp(this.data[r][c]);
+                softmaxSum += this.data[r][c];
+            }
 
-                }
-                attentionScores[r][j] = Math.exp
+            for (int d = 0; d < this.col; d++) {
+                this.data[r][d] = this.data[r][d] / softmaxSum;
             }
         }
-
+        return this;
     }
 
 }

@@ -9,16 +9,22 @@ public class Tokenizer {
     public Tokenizer(String text) {
         int charCounter = 0;
         charToNum = new HashMap<Character, Integer>();
-        numToChar = new char[text.length()];
+        char[] numOfChars = new char[text.length()];
 
         numToChar = text.toCharArray();
 
         for (int i = 0; i < numToChar.length; i++) {
             // if char not in text
             if (!(charToNum.containsKey(numToChar[i]))) {
-                charToNum.put(numToChar[i], charCounter);
+                charToNum.put(numOfChars[i], charCounter);
                 charCounter++;
             }
+        }
+
+        numToChar = new char[charToNum.size()];
+
+        for (int i = 0; i < charToNum.size(); i++) {
+            numToChar[i] = charToNum.get(numToChar[i]);
         }
 
         // ==========================================

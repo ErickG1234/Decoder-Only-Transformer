@@ -9,35 +9,25 @@ public class Tokenizer {
     public Tokenizer(String text) {
         int charCounter = 0;
         charToNum = new HashMap<Character, Integer>();
-        char[] numOfChars = new char[text.length()];
 
         numToChar = text.toCharArray();
 
         for (int i = 0; i < numToChar.length; i++) {
             // if char not in text
             if (!(charToNum.containsKey(numToChar[i]))) {
-                charToNum.put(numOfChars[i], charCounter);
+                charToNum.put(numToChar[i], charCounter);
                 charCounter++;
             }
         }
 
         numToChar = new char[charToNum.size()];
-
-        for (int i = 0; i < charToNum.size(); i++) {
-            numToChar[i] = charToNum.get(numToChar[i]);
+        // Returns a Set view of the mappings contained in this map.
+        // each Entry has a .getValue() and .getKey() function
+        for (Map.Entry<Character, Integer> entry : charToNum.entrySet()) {
+            numToChar[entry.getValue()] = entry.getKey();
         }
 
-        // ==========================================
-        // TODO (After Lunch! 🌮):
-        // 1. Right now, `numToChar` is initialized to the size of the whole text, and
-        // holds every character (including duplicates). We want it to be exactly
-        // the size of our vocabulary, and only hold unique characters.
-        // 2. Hint: After the loop above finishes, what does `charToNum.size()` tell us?
-        // 3. Set `vocabSize` to that number.
-        // 4. Re-initialize `numToChar` to be that exact size.
-        // 5. Loop through the `charToNum` map to populate `numToChar` so that
-        // the array index matches the ID assigned to each character.
-        // ==========================================
+        vocabSize = charToNum.size();
     }
 
     public char getChar(int index) {
@@ -52,12 +42,24 @@ public class Tokenizer {
         return vocabSize;
     }
 
-    public int[] encode() { // text to numbers
-        return null;
+    public int[] encode(String word) { // text to numbers
+        char[] wordChars = word.toCharArray();
+        int[] wordValues = new int[word.length()];
+        for (int i = 0; i < word.length(); i++) {
+            wordValues[i] = token.getInt(wordChars[i]);
+        }
+        return wordValues;
     }
 
-    public String decode() { // numbers to text
-        return null;
+    public String decode(int[] nums) { // numbers to text
+        String word = "";
+        char[] charArray = new char[nums.length - 1];
+        for (int i = 0; i < nums.length; i++) {
+            char letter = token.getChar(nums[i]);
+            charArray[i] = letter;
+            word += letter;
+        }
+        return word;
     }
 
 }

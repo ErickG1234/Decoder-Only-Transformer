@@ -11,10 +11,10 @@
 | Step | Component | Status |
 |------|-----------|--------|
 | 1 | Matrix math utilities (`Matrix.java`) | ✅ Core done |
-| 2 | Character tokenizer | 🔨 Up next |
-| 3 | Embedding layer | 🔲 Not started |
-| 4 | Positional encoding | 🔲 Not started |
-| 5 | Self-attention (single head) | 🔲 Not started |
+| 2 | Character tokenizer (`Tokenizer.java`) | ✅ Done |
+| 3 | Embedding layer (`Embedding.java`) | ✅ Done |
+| 4 | Positional encoding | ✅ Done |
+| 5 | Self-attention (single head) | 🔨 Up next |
 | 6 | Multi-head attention | 🔲 Not started |
 | 7 | Feed-forward network | 🔲 Not started |
 | 8 | Transformer block | 🔲 Not started |
@@ -54,15 +54,24 @@
 9. ✅ Scalar multiplication (`scalarMultiply()`) — mutates in place, returns `this`
 10. ✅ Softmax (`softmax()`) — row-wise, two-pass approach, mutates in place, returns `this`
 
+## Tokenizer.java — Completed
+- ✅ Constructor: builds `charToNum` (HashMap) and `numToChar` (char array) from input text
+- ✅ `encode(String)` → `int[]`: converts text to token indices
+- ✅ `decode(int[])` → `String`: converts token indices back to text (uses StringBuilder)
+- ✅ Getters: `getChar()`, `getInt()`, `getSize()`
+
+## Embedding.java — Completed
+- ✅ Constructor: takes `vocabSize` and `embeddingDim`, creates random weight matrix [vocabSize × embeddingDim]
+- ✅ `forward(int[] tokens)` → `Matrix`: looks up each token's row in weight matrix, returns [seqLength × embeddingDim] matrix
+- Fields: `weightMatrix` (Matrix), `embeddingDimension` (int), `vocabSize` (int)
+
 ## Current Task
-- **Step 2**: Build a character tokenizer (`Tokenizer.java`)
-- Completed so far:
-  1. ✅ Basic class structure (fields, constructor taking text, getter stubs).
-  2. ✅ Fixed variable shadowing for fields (`charToNum`, `numToChar`).
-  3. ✅ Populating `charToNum` (encoding map) with sequential indices using `charCounter` to avoid gaps.
+- **Step 5**: Self-attention (single head)
 - Up next:
-  1. 🔲 Populate `numToChar` (decoding array) with *only* unique characters. Hint: Use the size of the HashMap to determine the array size!
-  2. 🔲 Set the `vocabSize` field.
-  3. 🔲 Implement `encode()`: text → `int[]`
-  4. 🔲 Implement `decode()`: `int[]` → text
+  1. 🔲 Understand Q, K, V matrices
+  2. 🔲 Implement attention score calculation (`Q * K^T`)
+  3. 🔲 Implement scaling and softmax
+  4. 🔲 Implement causal masking (from deferred ops)
+  5. 🔲 Multiply by V
+
 

@@ -10,12 +10,12 @@ public class Tokenizer {
         int charCounter = 0;
         charToNum = new HashMap<Character, Integer>();
 
-        numToChar = text.toCharArray();
+        char[] wordChars = text.toCharArray();
 
-        for (int i = 0; i < numToChar.length; i++) {
+        for (int i = 0; i < wordChars.length; i++) {
             // if char not in text
-            if (!(charToNum.containsKey(numToChar[i]))) {
-                charToNum.put(numToChar[i], charCounter);
+            if (!(charToNum.containsKey(wordChars[i]))) {
+                charToNum.put(wordChars[i], charCounter);
                 charCounter++;
             }
         }
@@ -46,20 +46,18 @@ public class Tokenizer {
         char[] wordChars = word.toCharArray();
         int[] wordValues = new int[word.length()];
         for (int i = 0; i < word.length(); i++) {
-            wordValues[i] = token.getInt(wordChars[i]);
+            wordValues[i] = this.getInt(wordChars[i]);
         }
         return wordValues;
     }
 
     public String decode(int[] nums) { // numbers to text
-        String word = "";
-        char[] charArray = new char[nums.length - 1];
+        StringBuilder word = new StringBuilder(nums.length);
         for (int i = 0; i < nums.length; i++) {
-            char letter = token.getChar(nums[i]);
-            charArray[i] = letter;
-            word += letter;
+            char letter = this.getChar(nums[i]);
+            word.append(letter);
         }
-        return word;
+        return word.toString();
     }
 
 }

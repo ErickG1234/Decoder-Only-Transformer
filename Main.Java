@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -15,5 +17,22 @@ public class Main {
         System.out.println("Matrix Multiplication product: " + product);
         System.out.println("Softmax data: " + matrixC);
 
-    }
+        Tokenizer token = new Tokenizer("hello");
+
+        int[] encoded = token.encode("hello");
+        // Print memory address so need to call toString inthe print statement to print
+        // the actual array
+        String decoded = token.decode(encoded);
+
+        System.out.println("Encoded: " + Arrays.toString(encoded));
+        System.out.println("Decoded: " + decoded);
+
+        Embedding matrixEmbedding = new Embedding(4, token.getSize());
+        Matrix embeddedMatrix = matrixEmbedding.forward(encoded);
+        
+        // TODO (After Lunch): Test positional encoding! 
+        // 1. Print the raw token embeddings (maybe print tokenArray from inside Embedding temporarily, or comment out the add step)
+        // 2. Print embeddedMatrix (which now has positional encoding added) 
+        // 3. See how the values changed!
+        System.out.println("Embedded Matrix: " + embeddedMatrix);    }
 }
